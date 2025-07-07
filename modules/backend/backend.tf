@@ -1,5 +1,4 @@
 # Create a resource group
-# Create a resource group
 resource "azurerm_resource_group" "rg" {
   location = "westus"
   name     = "${var.environment}-${var.application_name}-rg"
