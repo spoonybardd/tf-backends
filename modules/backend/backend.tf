@@ -1,21 +1,19 @@
 # Create a resource group
+# Create a resource group
 resource "azurerm_resource_group" "rg" {
   location = "westus"
-  name     = "${var.environment}-${random_pet.prefix.id}-rg"
-}
-
-resource "random_pet" "prefix" {
-  length = 1
+  name     = "${var.environment}-${var.application_name}-rg"
 }
 
 # Create a storage account for Terraform state files
 resource "azurerm_storage_account" "storage" {
-  name                     = "${var.environment}${random_pet.prefix.id}tfstate"
+  name                     = "${var.environment}${var.application_name}tfstate"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
+
 
 # Create a storage container for the state file
 resource "azurerm_storage_container" "container" {
@@ -24,7 +22,6 @@ resource "azurerm_storage_container" "container" {
   container_access_type = "private"
 }
 
-variable "environment" {}
 
 # Resource group for storing the Terraform state
 output "resource_group_name" {
