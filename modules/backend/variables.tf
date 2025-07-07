@@ -1,6 +1,7 @@
 variable "subscription_id" {
   type = string
 }
+
 variable "environment" {
   description = "Environment name (dev, test, prod)"
   type        = string
